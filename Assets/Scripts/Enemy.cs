@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private const string PLAYER_TAG = "Player";
+    private const string LASER_TAG = "Laser";
+
     [SerializeField]
     private float _speed = 4.0f;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -19,6 +17,19 @@ public class Enemy : MonoBehaviour
         if (transform.position.y < -5.0f) {
             float randomX = Random.Range(-8.0f, 8.0f);
             transform.position = new Vector3(randomX, 7.0f, 0f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider collider) {
+        
+        switch (collider.tag) {
+            case PLAYER_TAG:
+                Destroy(this.gameObject);
+                break;
+            case LASER_TAG:
+                Destroy(collider.gameObject);
+                Destroy(this.gameObject);
+                break;
         }
     }
 }
