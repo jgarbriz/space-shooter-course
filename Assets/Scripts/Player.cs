@@ -5,9 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Initial player position coordinates
-    private static int PLAYER_INITIAL_POS_X = 0;
-    private static int PLAYER_INITIAL_POS_Y = 0;
-    private static int PLAYER_INITIAL_POS_Z = 0;
+    private static float PLAYER_INITIAL_POS_X = 0f;
+    private static float PLAYER_INITIAL_POS_Y = -3.5f;
+    private static float PLAYER_INITIAL_POS_Z = 0f;
 
     [SerializeField]
     private float _speed = 3.5f;
@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = 0.0f;
+
+    [SerializeField]
+    private int _lives = 3;
 
     void Start() {
         // Set initial position
@@ -54,5 +57,9 @@ public class Player : MonoBehaviour
     void FireLaser() {
         _canFire = Time.time + _fireRate;
         Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserYOffset, 0), Quaternion.identity);
+    }
+
+    public void Damage() {
+        _lives--;
     }
 }

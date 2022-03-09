@@ -23,12 +23,20 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider collider) {
         
         switch (collider.tag) {
-            case PLAYER_TAG:
+            case PLAYER_TAG: // Enemy collides with the player.
+                Player player = collider.GetComponent<Player>();
+                if (player != null) {
+                    player.Damage();
+                }
+
                 Destroy(this.gameObject);
+                
                 break;
-            case LASER_TAG:
+
+            case LASER_TAG: // Enemy is hit by the laser.
                 Destroy(collider.gameObject);
                 Destroy(this.gameObject);
+                
                 break;
         }
     }
