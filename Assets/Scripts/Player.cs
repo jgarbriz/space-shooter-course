@@ -5,9 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Initial player position coordinates
-    private static float PLAYER_INITIAL_POS_X = 0f;
-    private static float PLAYER_INITIAL_POS_Y = -3.5f;
-    private static float PLAYER_INITIAL_POS_Z = 0f;
+    private static float _PLAYER_INITIAL_POS_X = 0f;
+    private static float _PLAYER_INITIAL_POS_Y = -3.5f;
+    private static float _PLAYER_INITIAL_POS_Z = 0f;
+
+    private static string _SPAWN_MANAGER_NAME = "Spawn_Manager";
 
     [SerializeField]
     private float _speed = 3.5f;
@@ -22,9 +24,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
 
+    private SpawnManager _spawnManager;
+
     void Start() {
         // Set initial position
-        transform.position = new Vector3(PLAYER_INITIAL_POS_X, PLAYER_INITIAL_POS_Y, PLAYER_INITIAL_POS_Z);
+        transform.position = new Vector3(_PLAYER_INITIAL_POS_X, _PLAYER_INITIAL_POS_Y, _PLAYER_INITIAL_POS_Z);
+
+        _spawnManager = GameObject.Find(_SPAWN_MANAGER_NAME).GetComponent<SpawnManager>();
+        if (_spawnManager == null) {
+            Debug.LogError("The spawn manager is null.");
+        }
     }
 
     void Update() {
@@ -61,5 +70,10 @@ public class Player : MonoBehaviour
 
     public void Damage() {
         _lives--;
+
+        if (_lives < 1) {
+            _spawnManager.OnPlayerDeath();
+            Destroy(this.gameObject);
+        }
     }
 }
