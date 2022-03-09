@@ -19,13 +19,11 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.5f;
     private float _canFire = 0.0f;
 
-    // Start is called before the first frame update
     void Start() {
         // Set initial position
         transform.position = new Vector3(PLAYER_INITIAL_POS_X, PLAYER_INITIAL_POS_Y, PLAYER_INITIAL_POS_Z);
     }
 
-    // Update is called once per frame
     void Update() {
         CalculateMovement();
 
