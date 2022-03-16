@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collider) {
+    private void OnTriggerEnter2D(Collider2D collider) {
         
         switch (collider.tag) {
             case PLAYER_TAG: // Enemy collides with the player.
