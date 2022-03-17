@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private bool _isTripleShotActive = false;
+    private float _tripleShotDurationTime = 5.0f;
 
     void Start() {
         // Set initial position
@@ -86,5 +87,15 @@ public class Player : MonoBehaviour
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
+    }
+
+    public void TripleshotActive() {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    IEnumerator TripleShotPowerDownRoutine() {
+        yield return new WaitForSeconds(_tripleShotDurationTime);
+        _isTripleShotActive = false;
     }
 }

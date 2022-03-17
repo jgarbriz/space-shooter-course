@@ -25,6 +25,10 @@ public class Powerup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.tag == PLAYER_TAG) {
+            Player player = collider.transform.GetComponent<Player>();
+            if (player != null) {
+                player.TripleshotActive();
+            }
             Destroy(this.gameObject);
         }
     }
