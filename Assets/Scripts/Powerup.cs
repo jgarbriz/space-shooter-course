@@ -11,10 +11,6 @@ public class Powerup : MonoBehaviour
 
     private float _yOffScreen = -4.5f;
 
-    void Start() {
-        
-    }
-
     void Update() {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
