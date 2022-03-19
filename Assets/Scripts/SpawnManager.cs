@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
-    private GameObject _tripleShotPowerupPrefab;
+    private GameObject[] _powerupPrefabs;
 
     private float _xOffScreen = 8.0f;
     private float _yOffScreen = 7.0f;
@@ -35,7 +35,8 @@ public class SpawnManager : MonoBehaviour
     IEnumerator SpawnPowerupRoutine() {
         while (!_stopSpawning) {
             Vector3 spawnPosition = new Vector3(getRandomXScreenPosition(), _yOffScreen, 0.0f);
-            Instantiate(_tripleShotPowerupPrefab, spawnPosition, Quaternion.identity);
+            int randomPowerup = Random.Range(0, 2);
+            Instantiate(_powerupPrefabs[randomPowerup], spawnPosition, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
     }
