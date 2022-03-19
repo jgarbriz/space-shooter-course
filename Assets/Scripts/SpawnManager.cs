@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour
     IEnumerator SpawnPowerupRoutine() {
         while (!_stopSpawning) {
             Vector3 spawnPosition = new Vector3(getRandomXScreenPosition(), _yOffScreen, 0.0f);
-            int randomPowerup = Random.Range(0, 2);
+            int randomPowerup = Random.Range(0, _powerupPrefabs.Length);
             Instantiate(_powerupPrefabs[randomPowerup], spawnPosition, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
