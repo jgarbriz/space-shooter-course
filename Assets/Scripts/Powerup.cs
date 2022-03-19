@@ -5,9 +5,15 @@ using UnityEngine;
 public class Powerup : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
+    private const int TRIPLESHOT_ID = 0;
+    private const int SPEEDBOOST_ID = 1;
+    private const int SHIELD_ID = 3;
 
     [SerializeField]
     private float _speed = 3.0f;
+    
+    [SerializeField]
+    private int _powerupID;
 
     private float _yOffScreen = -4.5f;
 
@@ -23,7 +29,18 @@ public class Powerup : MonoBehaviour
         if (collider.tag == PLAYER_TAG) {
             Player player = collider.transform.GetComponent<Player>();
             if (player != null) {
-                player.TripleshotActive();
+                switch (_powerupID) {
+                    case TRIPLESHOT_ID:
+                        player.TripleshotActive();
+                        break;
+                    case SPEEDBOOST_ID:
+                        player.SpeedBoostActive();
+                        break;
+                    case SHIELD_ID:
+                        break;
+                    default:
+                        break;
+                }
             }
             Destroy(this.gameObject);
         }
