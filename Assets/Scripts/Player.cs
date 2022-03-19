@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
     [SerializeField]
     private GameObject _tripleShotPrefab;
+    [SerializeField]
+    private GameObject _shieldsVisualizer;
 
     private float _laserYOffset = 1.07f;
     [SerializeField]
@@ -32,8 +34,8 @@ public class Player : MonoBehaviour
 
     private bool _isTripleShotActive = false;
     private float _tripleShotDurationTime = 5.0f;
-    private bool _isSpeedBoostActive = false;
     private float _speedBoostDurationTime = 5.0f;
+    private bool _isShieldActive = false;
 
     void Start() {
         // Set initial position
@@ -83,6 +85,12 @@ public class Player : MonoBehaviour
     }
 
     public void Damage() {
+        if (_isShieldActive) {
+            _isShieldActive = false;
+            _shieldsVisualizer.SetActive(false);
+            return;
+        }
+
         _lives--;
 
         if (_lives < 1) {
@@ -91,7 +99,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void TripleshotActive() {
+    public void TripleShotActive() {
         _isTripleShotActive = true;
         StartCoroutine(TripleShotPowerDownRoutine());
     }
@@ -109,5 +117,10 @@ public class Player : MonoBehaviour
     IEnumerator SpeedBoostCoroutine() {
         yield return new WaitForSeconds(_speedBoostDurationTime);
         _speed /= _speedMultiplier;
+    }
+
+    public void ShieldsActive() {
+        _isShieldActive = true;
+        _shieldsVisualizer.SetActive(true);
     }
 }

@@ -7,7 +7,7 @@ public class Powerup : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     private const int TRIPLESHOT_ID = 0;
     private const int SPEEDBOOST_ID = 1;
-    private const int SHIELD_ID = 3;
+    private const int SHIELD_ID = 2;
 
     [SerializeField]
     private float _speed = 3.0f;
@@ -31,14 +31,16 @@ public class Powerup : MonoBehaviour
             if (player != null) {
                 switch (_powerupID) {
                     case TRIPLESHOT_ID:
-                        player.TripleshotActive();
+                        player.TripleShotActive();
                         break;
                     case SPEEDBOOST_ID:
                         player.SpeedBoostActive();
                         break;
                     case SHIELD_ID:
+                        player.ShieldsActive();
                         break;
-                    default:
+                    default: 
+                        Debug.Log("Default switch powerupID");
                         break;
                 }
             }
