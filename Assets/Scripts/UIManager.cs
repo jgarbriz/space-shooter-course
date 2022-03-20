@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     private const string SCORE_TEXT = "Score: ";
 
     [SerializeField] private Text _scoreText;
+    [SerializeField] private Sprite[] _livesSprites;
+    [SerializeField] private Image _livesImg;
 
     void Start()
     {
@@ -16,5 +18,9 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore(long playerScore) {
         _scoreText.text = SCORE_TEXT + playerScore.ToString();
+    }
+
+    public void UpdateLives(int currentLives) {
+        _livesImg.sprite = _livesSprites[currentLives];
     }
 }
