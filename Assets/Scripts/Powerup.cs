@@ -9,11 +9,9 @@ public class Powerup : MonoBehaviour
     private const int SPEEDBOOST_ID = 1;
     private const int SHIELD_ID = 2;
 
-    [SerializeField]
-    private float _speed = 3.0f;
+    [SerializeField] private float _speed = 3.0f;
     
-    [SerializeField]
-    private int _powerupID;
+    [SerializeField] private int _powerupID;
 
     private float _yOffScreen = -4.5f;
 

@@ -7,8 +7,14 @@ public class Enemy : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     private const string LASER_TAG = "Laser";
 
-    [SerializeField]
-    private float _speed = 4.0f;
+    [SerializeField] private float _speed = 4.0f;
+
+    private Player _player;
+
+    void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+    }
 
     void Update()
     {
@@ -34,6 +40,10 @@ public class Enemy : MonoBehaviour
                 break;
 
             case LASER_TAG: // Enemy is hit by the laser.
+                if (null != _player) {
+                    _player.AddScore(10);
+                }
+
                 Destroy(collider.gameObject);
                 Destroy(this.gameObject);
                 
