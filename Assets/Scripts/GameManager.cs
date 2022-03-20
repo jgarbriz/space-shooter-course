@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private const int GAME_SCENE_INDEX = 0;
+    private const int GAME_SCENE_INDEX = 1;
 
     [SerializeField] private bool _isGameOver = false;
 
