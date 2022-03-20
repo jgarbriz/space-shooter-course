@@ -11,24 +11,19 @@ public class Player : MonoBehaviour
 
     private static string _SPAWN_MANAGER_NAME = "Spawn_Manager";
 
-    [SerializeField]
-    private float _speed = 3.5f;
+    [SerializeField] private float _speed = 3.5f;
     private float _speedMultiplier = 2.0f;
 
-    [SerializeField]
-    private GameObject _laserPrefab;
-    [SerializeField]
-    private GameObject _tripleShotPrefab;
-    [SerializeField]
-    private GameObject _shieldsVisualizer;
+    [SerializeField] private GameObject _laserPrefab;
+    [SerializeField] private GameObject _tripleShotPrefab;
+    [SerializeField] private GameObject _shieldsVisualizer;
 
     private float _laserYOffset = 1.07f;
-    [SerializeField]
-    private float _fireRate = 0.5f;
+
+    [SerializeField] private float _fireRate = 0.5f;
     private float _canFire = 0.0f;
 
-    [SerializeField]
-    private int _lives = 3;
+    [SerializeField] private int _lives = 3;
 
     private SpawnManager _spawnManager;
 
@@ -37,13 +32,22 @@ public class Player : MonoBehaviour
     private float _speedBoostDurationTime = 5.0f;
     private bool _isShieldActive = false;
 
+    [SerializeField] private long _score = 0;
+
+    private UIManager _uiManager;
+
     void Start() {
         // Set initial position
         transform.position = new Vector3(_PLAYER_INITIAL_POS_X, _PLAYER_INITIAL_POS_Y, _PLAYER_INITIAL_POS_Z);
 
         _spawnManager = GameObject.Find(_SPAWN_MANAGER_NAME).GetComponent<SpawnManager>();
-        if (_spawnManager == null) {
+        if (null == _spawnManager) {
             Debug.LogError("The spawn manager is null.");
+        }
+
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        if (null == _uiManager) {
+            Debug.LogError("The UIManager is null.");
         }
     }
 
@@ -122,5 +126,10 @@ public class Player : MonoBehaviour
     public void ShieldsActive() {
         _isShieldActive = true;
         _shieldsVisualizer.SetActive(true);
+    }
+
+    public void AddScore(int points) {
+        _score += points;
+        _uiManager.UpdateScore(_score);
     }
 }
