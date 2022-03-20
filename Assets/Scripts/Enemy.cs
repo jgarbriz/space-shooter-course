@@ -7,8 +7,7 @@ public class Enemy : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     private const string LASER_TAG = "Laser";
 
-    [SerializeField]
-    private float _speed = 4.0f;
+    [SerializeField] private float _speed = 4.0f;
 
     private Player _player;
 
