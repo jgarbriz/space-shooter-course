@@ -14,13 +14,15 @@ public class SpawnManager : MonoBehaviour
 
     private bool _stopSpawning = false;
 
-    void Start()
+    public void StartSpawning()
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
     }
 
     IEnumerator SpawnEnemyRoutine() {
+        yield return new WaitForSeconds(3.0f);
+
         while(!_stopSpawning) {
             Vector3 spawnPosition = new Vector3(getRandomXScreenPosition(), _yOffScreen, 0.0f);
             GameObject newEnemy = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
@@ -30,6 +32,8 @@ public class SpawnManager : MonoBehaviour
     }
 
     IEnumerator SpawnPowerupRoutine() {
+        yield return new WaitForSeconds(3.0f);
+        
         while (!_stopSpawning) {
             Vector3 spawnPosition = new Vector3(getRandomXScreenPosition(), _yOffScreen, 0.0f);
             int randomPowerup = Random.Range(0, _powerupPrefabs.Length);
