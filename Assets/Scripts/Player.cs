@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleShotPrefab;
     [SerializeField] private GameObject _shieldsVisualizer;
+    [SerializeField] private GameObject _leftEngine, _rightEngine;
 
     private float _laserYOffset = 1.07f;
 
@@ -96,6 +97,17 @@ public class Player : MonoBehaviour
         }
 
         _lives--;
+
+        switch (_lives) {
+            case 2:
+                _leftEngine.SetActive(true);
+                break;
+            case 1:
+                _rightEngine.SetActive(true);
+                break;
+            default:
+                break;
+        }
 
         _uiManager.UpdateLives(_lives);
 
