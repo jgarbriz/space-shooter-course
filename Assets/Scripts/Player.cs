@@ -37,8 +37,10 @@ public class Player : MonoBehaviour
 
     private UIManager _uiManager;
 
+    [SerializeField] private AudioClip _laserSoundClip;
+    private AudioSource _audioSource;
+
     void Start() {
-        // Set initial position
         transform.position = new Vector3(_PLAYER_INITIAL_POS_X, _PLAYER_INITIAL_POS_Y, _PLAYER_INITIAL_POS_Z);
 
         _spawnManager = GameObject.Find(_SPAWN_MANAGER_NAME).GetComponent<SpawnManager>();
@@ -49,6 +51,13 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         if (null == _uiManager) {
             Debug.LogError("The UIManager is null.");
+        }
+
+        _audioSource = GetComponent<AudioSource>();
+        if (null == _audioSource) {
+            Debug.LogError("AudioSource on the player is null.");
+        } else {
+            _audioSource.clip = _laserSoundClip;
         }
     }
 
@@ -68,10 +77,8 @@ public class Player : MonoBehaviour
 
         transform.Translate(direction * _speed * Time.deltaTime);
 
-        // Limit the player movement on the Y axis.
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 3.8f), 0);
 
-        // Limit the player movement on the X axis.
         if (transform.position.x >= 11.3f) {
             transform.position = new Vector3(-11.3f, transform.position.y, 0);
         } else if (transform.position.x <= -11.3f) {
@@ -87,6 +94,8 @@ public class Player : MonoBehaviour
         } else {
             Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserYOffset, 0), Quaternion.identity);
         }
+
+        _audioSource.Play();
     }
 
     public void Damage() {

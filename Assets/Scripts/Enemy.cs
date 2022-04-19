@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     private Player _player;
     private Animator _anim;
+    private AudioSource _audioSource;
 
     void Start()
     {
@@ -23,6 +24,11 @@ public class Enemy : MonoBehaviour
         _anim = GetComponent<Animator>();
         if (_anim == null) {
             Debug.LogError("The animator is null.");
+        }
+
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null) {
+            Debug.LogError("AudioSource on the enemy is null.");
         }
     }
 
@@ -47,9 +53,11 @@ public class Enemy : MonoBehaviour
 
                 _anim.SetTrigger(ANIM_ON_ENEMY_DESTRUCTION);
                 _speed = 0f;
+                
+                _audioSource.Play();
 
                 Destroy(this.gameObject, 2.4f);
-                
+
                 break;
 
             case LASER_TAG: // Enemy is hit by the laser.
@@ -59,6 +67,8 @@ public class Enemy : MonoBehaviour
 
                 _anim.SetTrigger(ANIM_ON_ENEMY_DESTRUCTION);
                 _speed = 0f;
+
+                _audioSource.Play();
 
                 Destroy(collider.gameObject);
                 Destroy(this.gameObject, 2.4f);

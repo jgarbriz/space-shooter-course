@@ -15,6 +15,8 @@ public class Powerup : MonoBehaviour
 
     private float _yOffScreen = -4.5f;
 
+    [SerializeField] private AudioClip _audioClip;
+
     void Update() {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
@@ -42,6 +44,9 @@ public class Powerup : MonoBehaviour
                         break;
                 }
             }
+
+            AudioSource.PlayClipAtPoint(_audioClip, transform.position);
+
             Destroy(this.gameObject);
         }
     }
